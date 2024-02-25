@@ -4,7 +4,7 @@ alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'
             'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 #to not get a error when last alphabets are used in text,
-#it seems just duplicating the elements once more in alphabet
+#it seems just duplicating the elements once more in alphabet works, idk :-o
 #numbers ,symbols and  spaces are preserved
 #for gods sake dont use uppercase because i am to lazy to consider that scenario
 
