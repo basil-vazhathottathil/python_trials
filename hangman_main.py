@@ -85,3 +85,4 @@ while not game_end and lives != 0:
         print("You win!")
     elif lives == 0:
         print("You lose!")
+        print (f"The correct word was {chosen_word}")
