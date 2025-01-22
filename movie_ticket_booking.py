@@ -6,47 +6,70 @@ total_cost = 0
 
 def movie_availability():
     movies = ['Action', 'Comedy', 'Horror', 'Romantic']
-    print('Available Movies\n 1. Action \n 2. Comedy \n 3. Horror \n 4. Romantic')
-    movie_no = int(input('Enter the movie number: ')) - 1
+    print('Available Movies:')
+    for i, movie in enumerate(movies, 1):
+        print(f" {i}. {movie}")
 
-    if movie_no in range(0, 4):
-        print('Movie Selected:', movies[movie_no])
-    else:
-        print('Invalid Movie Number')
-        movie_availability()
+    while True:
+        try:
+            movie_no = int(input('Enter the movie number: ')) - 1
+            if 0 <= movie_no < len(movies):
+                return movies[movie_no]
+            else:
+                print('Invalid Movie Number. Try again.')
+        except ValueError:
+            print('Please enter a valid number.')
 
 
 def show_timings():
     timings = ['10:00 AM', '1:00 PM', '4:00 PM', '7:00 PM', '10:00 PM']
-    print('Available Timings\n 1. 10:00 AM \n 2. 1:00 PM \n 3. 4:00 PM \n 4. 7:00 PM \n 5. 10:00 PM')
-    timing_no = int(input('Enter the timing number: ')) - 1
+    print('Available Timings:')
+    for i, timing in enumerate(timings, 1):
+        print(f" {i}. {timing}")
 
-    if timing_no in range(0, 5):
-        print('Timing Selected:', timings[timing_no])
-    else:
-        print('Invalid Timing Number')
-        show_timings()
+    while True:
+        try:
+            timing_no = int(input('Enter the timing number: ')) - 1
+            if 0 <= timing_no < len(timings):
+                return timings[timing_no]
+            else:
+                print('Invalid Timing Number. Try again.')
+        except ValueError:
+            print('Please enter a valid number.')
 
 
 def ticket():
-    global total_cost 
-    print('Enter the type of ticket you want to book \n 1. Normal ($100) \n 2. Premium ($150)')
-    ticket_type = int(input('Enter the ticket type (1 or 2): '))
-
-    if ticket_type == 1:
-        total_cost += 100
-        return 'Normal Ticket'
-    elif ticket_type == 2:
-        total_cost += 150
-        return 'Premium Ticket'
-    else:
-        print('Invalid Ticket Type')
-        return ticket() 
+    global total_cost
+    while True:
+        print('Enter the type of ticket you want to book:')
+        print(' 1. Normal (Rs 100)')
+        print(' 2. Premium (Rs 150)')
+        try:
+            ticket_type = int(input('Enter the ticket type (1 or 2): '))
+            if ticket_type == 1:
+                total_cost += 100
+                return 'Normal Ticket'
+            elif ticket_type == 2:
+                total_cost += 150
+                return 'Premium Ticket'
+            else:
+                print('Invalid Ticket Type. Try again.')
+        except ValueError:
+            print('Please enter a valid number.')
 
 
 def ticket_count():
     global total_tickets, discount
-    total_tickets = int(input('Enter the number of tickets you want to book: '))
+    while True:
+        try:
+            total_tickets = int(input('Enter the number of tickets you want to book: '))
+            if total_tickets > 0:
+                break
+            else:
+                print('The number of tickets must be at least 1.')
+        except ValueError:
+            print('Please enter a valid number.')
+
     for _ in range(total_tickets):
         ticket_type = ticket()
         print(f"Ticket booked: {ticket_type}")
@@ -56,17 +79,26 @@ def ticket_count():
         print('You are eligible for a discount.')
 
 
-def calculate_total_cost():
-    global total_cost, discount
-    if discount:
-        total_cost -= total_cost * 0.1
-    print('Total Cost:', total_cost)
+def print_ticket(movie, timing, total_tickets, total_cost, discount):
+    print('\n----- Your Ticket -----')
+    ticket_block = f"""
+    Movie: {movie}
+    Timing: {timing}
+    Total Tickets: {total_tickets}
+    Discount: {'Yes' if discount else 'No'}
+    Total Cost: Rs {total_cost:.2f}
+    """
+    print(ticket_block.strip())
 
 
 def main():
-    movie_availability()
-    show_timings()
+    movie = movie_availability()
+    timing = show_timings()
     ticket_count()
-    calculate_total_cost()
+    # Apply discount if eligible
+    if discount:
+        global total_cost
+        total_cost *= 0.9
+    print_ticket(movie, timing, total_tickets, total_cost, discount)
 
 main()
