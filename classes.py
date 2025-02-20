@@ -13,7 +13,7 @@ class Car:
 
 
 car1 = Car('eon',2011,65000)
-car2 = Car('etios',2018,40000)
+car2 = Car('fortuner',2018,40000)
 
 car1.display_info()
 car1.drive()
